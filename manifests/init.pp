@@ -12,4 +12,17 @@ class sphinx {
         source => "/root/sphinx.rpm",
         require => Exec["get-sphinx"]
     }
+
+    file { "/etc/sphinx/sphinx.conf":
+        ensure => file,
+        source => "puppet:///modules/sphinx/sphinx.conf",
+        alias  => "sphinx-conf",
+    }
+
+    file { "/etc/sphinx.d":
+        ensure => directory,
+        owner  => "root",
+        group  => "root",
+        alias  => "sphinx.d",
+    }
 }
