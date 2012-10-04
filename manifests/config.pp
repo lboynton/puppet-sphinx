@@ -1,6 +1,9 @@
-define sphinx::config($dir, $source) {
-    file { "/etc/sphinx.d/${dir}/${name}":
-        ensure => file,
+define sphinx::config($source) {
+    file { "/etc/sphinx.d/${name}/":
+        ensure => directory,
         source => $source,
+        recurse => true,
+        purge   => true,
+        force   => true,
     }
 }
