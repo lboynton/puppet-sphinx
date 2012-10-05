@@ -30,7 +30,8 @@ class sphinx($mem_limit = '2047M') {
         ensure  => present,
         owner   => "root",
         group   => "root",
-        require  => File['sphinx.d'],
+        require => File['sphinx.d'],
+        source  => "puppet:///modules/sphinx/searchd.conf",
     }
 
     file { "/etc/sphinx.d/indexer.conf":
