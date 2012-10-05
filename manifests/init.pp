@@ -1,4 +1,4 @@
-class sphinx {
+class sphinx($mem_limit = '2047M') {
     # sphinx not in yum repo
     exec {
 		"/usr/bin/wget http://sphinxsearch.com/files/sphinx-2.0.5-1.rhel6.x86_64.rpm -O /root/sphinx.rpm":
@@ -31,5 +31,13 @@ class sphinx {
         owner   => "root",
         group   => "root",
         require  => File['sphinx.d'],
+    }
+
+    file { "/etc/sphinx.d/indexer.conf":
+        ensure  => present,
+        owner   => "root",
+        group   => "root",
+        require => File['sphinx.d'],
+        content => template("sphinx/indexer.conf.erb"),
     }
 }
