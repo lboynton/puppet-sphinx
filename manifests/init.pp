@@ -25,4 +25,11 @@ class sphinx {
         group  => "root",
         alias  => "sphinx.d",
     }
+
+    file { "/etc/sphinx.d/searchd.conf":
+        ensure  => present,
+        owner   => "root",
+        group   => "root",
+        require  => File['sphinx.d'],
+    }
 }
