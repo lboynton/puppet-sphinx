@@ -5,5 +5,7 @@ define sphinx::config($source) {
         recurse => true,
         purge   => true,
         force   => true,
+        owner   => 'root',
+        group   => 'root',
     }
 }

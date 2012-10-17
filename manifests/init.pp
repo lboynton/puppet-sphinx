@@ -17,6 +17,8 @@ class sphinx($mem_limit = '2047M') {
         ensure => file,
         source => "puppet:///modules/sphinx/sphinx.conf",
         alias  => "sphinx-conf",
+        owner   => 'root',
+        group   => 'root',
     }
 
     file { "/etc/sphinx.d":
