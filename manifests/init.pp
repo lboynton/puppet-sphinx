@@ -43,4 +43,10 @@ class sphinx($mem_limit = '2047M') {
         require => File['sphinx.d'],
         content => template("sphinx/indexer.conf.erb"),
     }
+
+    service { "searchd":
+        ensure  => running,
+        enable  => true,
+        require => Package['sphinx'],
+    }
 }
