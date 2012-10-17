@@ -44,9 +44,19 @@ class sphinx($mem_limit = '2047M') {
         content => template("sphinx/indexer.conf.erb"),
     }
 
+    file { "/var/data":
+        ensure  => directory,
+        owner   => 'sphinx',
+        group   => 'sphinx',
+        require => Package['sphinx'],
+    }
+
     service { "searchd":
         ensure  => running,
         enable  => true,
-        require => Package['sphinx'],
+        require => [
+            Package['sphinx'],
+            File['/var/data'],
+        ]
     }
 }
