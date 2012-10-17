@@ -6,7 +6,7 @@ define sphinx::config(
     $pass   => undef,
     $db     => undef,
     $port   => 3306,
-    $site   => undef,
+    $site   => undef
 ) {
     file { "/etc/sphinx.d/${site}/":
         ensure => directory,
