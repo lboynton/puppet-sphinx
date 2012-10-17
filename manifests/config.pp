@@ -1,12 +1,12 @@
 define sphinx::config(
-    $source,
-    $type   => 'mysql',
-    $host   => '127.0.0.1',
-    $user   => undef,
-    $pass   => undef,
-    $db     => undef,
-    $port   => 3306,
-    $site   => undef
+    $source = undef,
+    $type   = 'mysql',
+    $host   = '127.0.0.1',
+    $user   = undef,
+    $pass   = undef,
+    $db     = undef,
+    $port   = 3306,
+    $site   = undef,
 ) {
     file { "/etc/sphinx.d/${site}/":
         ensure => directory,
