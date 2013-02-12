@@ -9,7 +9,7 @@ class sphinx($mem_limit = '2047M') {
     # sphinx not in yum repo
     exec {
 		'/usr/bin/wget http://sphinxsearch.com/files/sphinx-2.0.6-1.rhel6.x86_64.rpm -O /root/sphinx.rpm':
-			alias => 'get-sphinx',
+			alias   => 'get-sphinx',
 			creates => '/root/sphinx.rpm',
 	}
 
@@ -22,19 +22,19 @@ class sphinx($mem_limit = '2047M') {
     }
 
     file { '/etc/sphinx/sphinx.conf':
-        ensure => file,
-        source => 'puppet:///modules/sphinx/sphinx.conf',
-        alias  => 'sphinx-conf',
+        ensure  => file,
+        source  => 'puppet:///modules/sphinx/sphinx.conf',
+        alias   => 'sphinx-conf',
         owner   => 'root',
         group   => 'root',
         before  => Service['searchd'],
     }
 
     file { '/etc/sphinx.d':
-        ensure => directory,
-        owner  => 'root',
-        group  => 'root',
-        alias  => 'sphinx.d',
+        ensure  => directory,
+        owner   => 'root',
+        group   => 'root',
+        alias   => 'sphinx.d',
         before  => Service['searchd'],
     }
 
@@ -65,9 +65,9 @@ class sphinx($mem_limit = '2047M') {
     }
 
     service { 'searchd':
-        ensure  => running,
-        enable  => true,
-        require => File['/var/data'],
-        subscribe => Package['sphinx'],
+        ensure      => running,
+        enable      => true,
+        require     => File['/var/data'],
+        subscribe   => Package['sphinx'],
     }
 }
