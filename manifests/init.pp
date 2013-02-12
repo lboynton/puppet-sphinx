@@ -29,6 +29,7 @@ class sphinx($mem_limit = '2047M') {
         alias  => "sphinx-conf",
         owner   => 'root',
         group   => 'root',
+        before  => Service['searchd'],
     }
 
     file { "/etc/sphinx.d":
@@ -36,6 +37,7 @@ class sphinx($mem_limit = '2047M') {
         owner  => "root",
         group  => "root",
         alias  => "sphinx.d",
+        before  => Service['searchd'],
     }
 
     file { "/etc/sphinx.d/searchd.conf":
@@ -44,6 +46,7 @@ class sphinx($mem_limit = '2047M') {
         group   => "root",
         require => File['sphinx.d'],
         source  => "puppet:///modules/sphinx/searchd.conf",
+        before  => Service['searchd'],
     }
 
     file { "/etc/sphinx.d/indexer.conf":
@@ -52,6 +55,7 @@ class sphinx($mem_limit = '2047M') {
         group   => "root",
         require => File['sphinx.d'],
         content => template("sphinx/indexer.conf.erb"),
+        before  => Service['searchd'],
     }
 
     file { "/var/data":
@@ -59,6 +63,7 @@ class sphinx($mem_limit = '2047M') {
         owner   => 'sphinx',
         group   => 'sphinx',
         require => Package['sphinx'],
+        before  => Service['searchd'],
     }
 
     service { "searchd":
