@@ -8,7 +8,7 @@ class sphinx($mem_limit = '2047M') {
 
     # sphinx not in yum repo
     exec {
-		"/usr/bin/wget http://sphinxsearch.com/files/sphinx-2.0.5-1.rhel6.x86_64.rpm -O /root/sphinx.rpm":
+		"/usr/bin/wget http://sphinxsearch.com/files/sphinx-2.0.6-1.rhel6.x86_64.rpm -O /root/sphinx.rpm":
 			alias => "get-sphinx",
 			creates => "/root/sphinx.rpm",
 	}
