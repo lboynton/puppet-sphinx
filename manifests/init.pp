@@ -14,13 +14,11 @@ class sphinx($mem_limit = '2047M') {
 	}
 
     package { 'sphinx':
-        ensure => installed,
-        provider => rpm,
-        source => '/root/sphinx.rpm',
-        require => [
-            Exec['get-sphinx'],
-            Package['mysql-libs'],
-        ]
+        ensure      => installed,
+        provider    => rpm,
+        source      => '/root/sphinx.rpm',
+        subscribe   => Exec['get-sphinx'],
+        require     => Package['mysql-libs']
     }
 
     file { '/etc/sphinx/sphinx.conf':
