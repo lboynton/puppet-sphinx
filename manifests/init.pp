@@ -67,9 +67,7 @@ class sphinx($mem_limit = '2047M') {
     service { 'searchd':
         ensure  => running,
         enable  => true,
-        require => [
-            Package['sphinx'],
-            File['/var/data'],
-        ]
+        require => File['/var/data'],
+        subscribe => Package['sphinx'],
     }
 }
