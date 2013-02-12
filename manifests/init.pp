@@ -14,7 +14,7 @@ class sphinx($mem_limit = '2047M') {
 	}
 
     package { 'sphinx':
-        ensure      => installed,
+        ensure      => latest,
         provider    => rpm,
         source      => '/root/sphinx.rpm',
         subscribe   => Exec['get-sphinx'],
