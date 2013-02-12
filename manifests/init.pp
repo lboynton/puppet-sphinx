@@ -1,4 +1,11 @@
 class sphinx($mem_limit = '2047M') {
+
+    if !defined(Package['mysql-libs']) {
+        package { 'mysql-libs':
+            ensure  => installed,
+        }
+    }
+
     # sphinx not in yum repo
     exec {
 		"/usr/bin/wget http://sphinxsearch.com/files/sphinx-2.0.5-1.rhel6.x86_64.rpm -O /root/sphinx.rpm":
@@ -10,7 +17,10 @@ class sphinx($mem_limit = '2047M') {
         ensure => installed,
         provider => rpm,
         source => "/root/sphinx.rpm",
-        require => Exec["get-sphinx"]
+        require => [
+            Exec["get-sphinx"],
+            Package['mysql-libs'],
+        ]
     }
 
     file { "/etc/sphinx/sphinx.conf":
