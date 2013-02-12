@@ -8,57 +8,57 @@ class sphinx($mem_limit = '2047M') {
 
     # sphinx not in yum repo
     exec {
-		"/usr/bin/wget http://sphinxsearch.com/files/sphinx-2.0.6-1.rhel6.x86_64.rpm -O /root/sphinx.rpm":
-			alias => "get-sphinx",
-			creates => "/root/sphinx.rpm",
+		'/usr/bin/wget http://sphinxsearch.com/files/sphinx-2.0.6-1.rhel6.x86_64.rpm -O /root/sphinx.rpm':
+			alias => 'get-sphinx',
+			creates => '/root/sphinx.rpm',
 	}
 
-    package { "sphinx":
+    package { 'sphinx':
         ensure => installed,
         provider => rpm,
-        source => "/root/sphinx.rpm",
+        source => '/root/sphinx.rpm',
         require => [
-            Exec["get-sphinx"],
+            Exec['get-sphinx'],
             Package['mysql-libs'],
         ]
     }
 
-    file { "/etc/sphinx/sphinx.conf":
+    file { '/etc/sphinx/sphinx.conf':
         ensure => file,
-        source => "puppet:///modules/sphinx/sphinx.conf",
-        alias  => "sphinx-conf",
+        source => 'puppet:///modules/sphinx/sphinx.conf',
+        alias  => 'sphinx-conf',
         owner   => 'root',
         group   => 'root',
         before  => Service['searchd'],
     }
 
-    file { "/etc/sphinx.d":
+    file { '/etc/sphinx.d':
         ensure => directory,
-        owner  => "root",
-        group  => "root",
-        alias  => "sphinx.d",
+        owner  => 'root',
+        group  => 'root',
+        alias  => 'sphinx.d',
         before  => Service['searchd'],
     }
 
-    file { "/etc/sphinx.d/searchd.conf":
+    file { '/etc/sphinx.d/searchd.conf':
         ensure  => present,
-        owner   => "root",
-        group   => "root",
+        owner   => 'root',
+        group   => 'root',
         require => File['sphinx.d'],
-        source  => "puppet:///modules/sphinx/searchd.conf",
+        source  => 'puppet:///modules/sphinx/searchd.conf',
         before  => Service['searchd'],
     }
 
-    file { "/etc/sphinx.d/indexer.conf":
+    file { '/etc/sphinx.d/indexer.conf':
         ensure  => present,
-        owner   => "root",
-        group   => "root",
+        owner   => 'root',
+        group   => 'root',
         require => File['sphinx.d'],
-        content => template("sphinx/indexer.conf.erb"),
+        content => template('sphinx/indexer.conf.erb'),
         before  => Service['searchd'],
     }
 
-    file { "/var/data":
+    file { '/var/data':
         ensure  => directory,
         owner   => 'sphinx',
         group   => 'sphinx',
@@ -66,7 +66,7 @@ class sphinx($mem_limit = '2047M') {
         before  => Service['searchd'],
     }
 
-    service { "searchd":
+    service { 'searchd':
         ensure  => running,
         enable  => true,
         require => [
