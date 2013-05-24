@@ -6,17 +6,19 @@ class sphinx($mem_limit = '2047M') {
         }
     }
 
+    $file = 'sphinx-2.0.8-1.rhel6.x86_64.rpm'
+
     # sphinx not in yum repo
     exec {
-		'/usr/bin/wget http://sphinxsearch.com/files/sphinx-2.0.8-1.rhel6.x86_64.rpm -O /root/sphinx.rpm':
+		"/usr/bin/wget http://sphinxsearch.com/files/$file -O /root/$file":
 			alias   => 'get-sphinx',
-			creates => '/root/sphinx.rpm',
+			creates => $file,
 	}
 
     package { 'sphinx':
         ensure      => latest,
         provider    => rpm,
-        source      => '/root/sphinx.rpm',
+        source      => $file,
         subscribe   => Exec['get-sphinx'],
         require     => Package['mysql-libs']
     }
