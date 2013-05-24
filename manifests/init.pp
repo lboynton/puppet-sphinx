@@ -12,13 +12,13 @@ class sphinx($mem_limit = '2047M') {
     exec {
 		"/usr/bin/wget http://sphinxsearch.com/files/$file -O /root/$file":
 			alias   => 'get-sphinx',
-			creates => $file,
+			creates => "/root/$file",
 	}
 
     package { 'sphinx':
         ensure      => latest,
         provider    => rpm,
-        source      => $file,
+        source      => "/root/$file",
         subscribe   => Exec['get-sphinx'],
         require     => Package['mysql-libs']
     }
