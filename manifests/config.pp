@@ -16,11 +16,13 @@ define sphinx::config(
         force   => true,
         owner   => 'root',
         group   => 'root',
+        before  => Service['searchd'],
     }
 
     file { "/etc/sphinx.d/${site}/default.source":
         content => template("sphinx/default.source.erb"),
         owner   => 'root',
         group   => 'root',
+        before  => Service['searchd'],
     }
 }
