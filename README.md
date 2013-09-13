@@ -4,7 +4,7 @@ puppet-sphinx
 Puppet module for adding and configuring sphinx search. Tested on CentOS 6.
 
 Usage
-=============
+-------------
 For the default settings, simply include the sphinx class with
 
 ```puppet
@@ -33,3 +33,9 @@ class { 'sphinx':
 ```
 
 Use this instead of `include sphinx`.
+
+Dependencies
+-------------
+Installs sphinx from EPEL, so this puppet module is required.
+
+* [puppet-module-epel](https://github.com/stahnma/puppet-module-epel)
