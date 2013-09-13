@@ -13,7 +13,7 @@ class sphinx($mem_limit = '2047M') {
         alias   => 'sphinx-conf',
         owner   => 'root',
         group   => 'root',
-        before  => Service['searchd'],
+        require  => Package['sphinx'],
     }
 
     file { '/etc/sphinx.d':
