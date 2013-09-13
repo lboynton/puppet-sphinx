@@ -50,6 +50,7 @@ class sphinx($mem_limit = '2047M') {
         before  => Service['searchd'],
     }
 
+    # service will fail to start unless it has been configured
     service { 'searchd':
         ensure      => running,
         enable      => true,
