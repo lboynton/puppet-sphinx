@@ -19,7 +19,7 @@ define sphinx::config(
         before  => Service['searchd'],
     }
 
-    file { "/etc/sphinx.d/${site}/default.source":
+    file { "/etc/sphinx.d/${site}/1-default.source":
         content => template("sphinx/default.source.erb"),
         owner   => 'root',
         group   => 'root',
